@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultado - Conversor de Distância</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .converter-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        h2 {
+            color: #000000;
+            text-align: center;
+            margin-top: 0;
+        }
+        .result-box {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .result-value {
+            font-size: 1.5em;
+            color: #000000;
+            font-weight: bold;
+        }
+        .btn-back {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn-back:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="converter-container">
+        <h2>Conversor de Distância</h2>
+        <div class="result-box">
+            <p class="result-value" id="resultado-texto"></p>
+            <a href="index.html" class="btn-back">Voltar</a>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        document.getElementById('resultado-texto').textContent = urlParams.get('resultado');
+    </script>
+</body>
+</html>

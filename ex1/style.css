@@ -1,0 +1,17 @@
+#p1 {
+    cursor: pointer; /* muda o cursor para click, assim o usuario que o conteudo eh clickavel */
+    user-select: none; /* impossibilita selecionar o texto, para que multiplos clicks sejam possiveis sem interferencia*/
+}
+
+/* criacao das classes com as cores que serao atualizadas */
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+.blue {
+    color: blue;
+}

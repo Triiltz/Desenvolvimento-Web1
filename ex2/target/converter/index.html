@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Conversor de Distância</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+        form {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        select, input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<h2>Conversor de Distância</h2>
+
+<form action="converter" method="post">
+    <label for="opcao">Escolha a conversão:</label>
+    <select name="unidade" id="opcao" required>
+        <option value="" disabled selected>Selecione uma opção</option>
+        <option value="milha_metro">Milhas → Metros</option>
+        <option value="metro_milha">Metros → Milhas</option>
+        <option value="pe_metro">Pés → Metros</option>
+        <option value="metro_pe">Metros → Pés</option>
+    </select>
+
+    <br><br>
+
+    <label for="valor">Digite o valor:</label>
+    <input type="number" step="any" name="valor" id="valor" required placeholder="Digite um número">
+    <br><br>
+
+    <input type="submit" value="Converter">
+</form>
+
+</body>
+</html>
