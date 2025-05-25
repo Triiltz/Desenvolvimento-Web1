@@ -104,6 +104,7 @@
         </div>
         <div class="language-switcher">
             <a href="?lang=pt">Português</a>
+            <span>|</span>
             <a href="?lang=en">English</a>
         </div>
     </div>
