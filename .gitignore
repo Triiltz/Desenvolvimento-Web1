@@ -82,7 +82,154 @@ yarn-error.log*
 /nbdist/
 /.nb-gradle/
 
-### VS Code ###
+### VS Code #### Ignore everything in the target directory
+/target/**
+ 
+# Ignore all class files
+*.class
+ 
+# Ignore all WAR, EAR, JAR, and ZIP files
+*.war
+*.ear
+*.jar
+*.zip
+ 
+# Ignore everything in the .idea directory
+/.idea/**
+ 
+# Ignore all .iml, .ipr, and .iws files
+*.iml
+*.ipr
+*.iws
+ 
+# Ignore all .classpath, .project, and .settings files
+.classpath
+.project
+.settings/**
+ 
+# Ignore all .vscode files and directories except for settings.json, tasks.json, launch.json, and extensions.json
+.vscode/**
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+ 
+# Ignore all .swp and .swo files
+*.swp
+*.swo
+ 
+# Ignore all Thumbs.db, Desktop.ini, .DS_Store, and .lnk files
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.lnk
+ 
+# Ignore all .Zone.Identifier and ~$* files
+*.Zone.Identifier
+~$*
+ 
+# Ignore all ehthumbs.db and [Tt]humbs.db files
+ehthumbs.db
+[Tt]humbs.db
+ 
+# Ignore all .wslconfig and .wslgconfig files
+.wslconfig
+.wslgconfig
+ 
+# Ignore all log, tmp, temp, bak, and backup files
+*.log
+*.tmp
+*.temp
+*.bak
+*.backup
+ 
+# Ignore all .sublime-workspace files
+*.sublime-workspace
+ 
+# Ignore all database files
+*.db
+*.sqlite
+*.h2.db
+/database/**
+ 
+# Ignore all config files except for application.properties
+/config/**
+!/config/application.properties
+ 
+# Ignore all .env files except for .env.local, .env.development, and .env.test
+.env
+*.env.local
+*.env.development
+*.env.test
+ 
+# Ignore all node_modules directories
+node_modules/**
+ 
+# Ignore all npm-debug.log, yarn-debug.log, and yarn-error.log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+ 
+# Ignore all dist directories
+/dist/**
+ 
+# Ignore all .angular/cache directories
+/.angular/cache/**
+ 
+# Ignore all .orig files
+*.orig
+ 
+# Ignore all .factorypath files
+.factorypath
+ 
+# Ignore all .metadata directories
+.metadata/**
+ 
+# Ignore all .loadpath files
+.loadpath
+ 
+# Ignore all .recommenders directories
+.recommenders/**
+ 
+# Ignore all nbproject/private directories
+/nbproject/private/**
+ 
+# Ignore all build directories
+/build/**
+ 
+# Ignore all nbbuild directories
+/nbbuild/**
+ 
+# Ignore all dist directories
+/dist/**
+ 
+# Ignore all nbdist directories
+/nbdist/**
+ 
+# Ignore all .nb-gradle directories
+/.nb-gradle/**
+ 
+# Ignore all .pid files
+*.pid
+ 
+# Ignore all .seed files
+*.seed
+ 
+# Ignore all .pid.lock files
+*.pid.lock
+ 
+# Ignore all .pdb files
+*.pdb
+ 
+# Ignore all .idb files
+*.idb
+ 
+# Ignore all .lib files
+*.lib
+ 
+# Ignore all docx and xlsx files
+**/*.docx
+**/*.xlsx
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
