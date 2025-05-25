@@ -13,7 +13,7 @@ public class AcessaBD {
             // Setup para uso do banco de dados MySQL
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306/Academia?useTimezone=true&serverTimezone=GMT-3";
-            Connection con = DriverManager.getConnection(url, "root", "Root@0100");
+            Connection con = DriverManager.getConnection(url, "user", "password");
 
             Statement stmt = con.createStatement();
 
