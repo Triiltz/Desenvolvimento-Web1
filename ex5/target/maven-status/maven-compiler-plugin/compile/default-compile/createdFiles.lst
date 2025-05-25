@@ -1,0 +1,7 @@
+br/ufscar/dc/dsw/dao/GenericDAO.class
+br/ufscar/dc/dsw/dao/PlanoTreinoDAO.class
+br/ufscar/dc/dsw/controller/PlanoTreinoController.class
+br/ufscar/dc/dsw/controller/AlunoController.class
+br/ufscar/dc/dsw/dao/AlunoDAO.class
+br/ufscar/dc/dsw/domain/PlanoTreino.class
+br/ufscar/dc/dsw/domain/Aluno.class
