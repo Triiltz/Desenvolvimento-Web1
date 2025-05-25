@@ -75,8 +75,10 @@
             padding: 20px;
             font-size: 1.3em;
             font-weight: bold;
-            text-align: center;
-            flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
         }
         
         .card-body {
@@ -98,8 +100,7 @@
         
         .icon {
             font-size: 2.5em;
-            margin-bottom: 15px;
-            color: var(--secondary-color);
+            color: white;
         }
         
         footer {
@@ -108,14 +109,27 @@
             color: #7f8c8d;
             font-size: 0.9em;
         }
+        
+        .language-switcher {
+            text-align: right;
+            margin: 10px;
+        }
+        
+        .language-switcher a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            margin: 0 5px;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div style="text-align: right; margin: 10px;">
-        <a href="?lang=pt"><fmt:message key="language.pt"/></a> | 
+    <div class="language-switcher">
+        <a href="?lang=pt"><fmt:message key="language.pt"/></a>
+        <span>|</span>
         <a href="?lang=en"><fmt:message key="language.en"/></a>
     </div>
+    
     <div class="container">
         <h1><fmt:message key="system.title"/></h1>
         
@@ -123,7 +137,7 @@
             <a href="${contextPath}/Treinos" class="card">
                 <div class="card-header">
                     <i class="fas fa-dumbbell icon"></i>
-                    <fmt:message key="menu.treinos"/>
+                    <div><fmt:message key="menu.treinos"/></div>
                 </div>
                 <div class="card-body">
                     <p><fmt:message key="menu.treinos.desc"/></p>
@@ -133,7 +147,7 @@
             <a href="${contextPath}/Alunos" class="card">
                 <div class="card-header">
                     <i class="fas fa-users icon"></i>
-                    <fmt:message key="menu.alunos"/>
+                    <div><fmt:message key="menu.alunos"/></div>
                 </div>
                 <div class="card-body">
                     <p><fmt:message key="menu.alunos.desc"/></p>
