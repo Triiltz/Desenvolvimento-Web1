@@ -15,6 +15,6 @@ public abstract class GenericDAO {
 
     protected Connection getConnection() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/Academia?useTimezone=true&serverTimezone=UTC";
-        return DriverManager.getConnection(url, "root", "Root@0100");
+        return DriverManager.getConnection(url, "user", "password");
     }
 }
