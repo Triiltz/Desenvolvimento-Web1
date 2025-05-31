@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="|#{app.title} - #{result.title}|"></title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <div class="language-switcher">
+            <a th:href="@{/converter(lang='pt-BR', valor=${valorOriginal}, conversao=${conversao})}">Português</a>
+            <a th:href="@{/converter(lang='en', valor=${valorOriginal}, conversao=${conversao})}">English</a>
+        </div>
+
+        <h2 th:text="#{app.title}">Conversor de Distância</h2>
+        <p class="result-value">
+            <th:block th:switch="${conversao}">
+                <th:block th:case="'mi_m'">
+                    <span th:text="#{result.mi_m(${valorFormatado}, ${resultadoFormatado})}"></span>
+                </th:block>
+                <th:block th:case="'m_mi'">
+                    <span th:text="#{result.m_mi(${valorFormatado}, ${resultadoFormatado})}"></span>
+                </th:block>
+                <th:block th:case="'ft_m'">
+                    <span th:text="#{result.ft_m(${valorFormatado}, ${resultadoFormatado})}"></span>
+                </th:block>
+                <th:block th:case="'m_ft'">
+                    <span th:text="#{result.m_ft(${valorFormatado}, ${resultadoFormatado})}"></span>
+                </th:block>
+            </th:block>
+        </p>
+        <a th:href="@{/(lang=${#locale.language})}" class="btn-back" th:text="#{result.back_button}">Retorne à página principal</a>
+    </div>
+</body>
+</html>

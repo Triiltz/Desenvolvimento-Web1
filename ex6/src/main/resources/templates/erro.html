@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="|#{app.title} - #{error.title}|"></title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+         <div class="language-switcher">
+            <a th:href="@{/erro(lang='pt-BR', errorType=${model.errorType != null ? model.errorType : ''})}">Português</a>
+            <a th:href="@{/erro(lang='en', errorType=${model.errorType != null ? model.errorType : ''})}">English</a>
+        </div>
+
+        <h2 th:text="#{app.title}">Conversor de Distância</h2>
+        
+        <div class="error-message-box">
+            <h3 th:text="#{error.header}">Erro</h3>
+            <th:block th:switch="${errorType}">
+                <p th:case="'missing_params'" th:text="#{error.missing_params}"></p>
+                <p th:case="'invalid_number'" th:text="#{error.invalid_number}"></p>
+                <p th:case="'invalid_conversion'" th:text="#{error.invalid_conversion}"></p>
+                <p th:case="*" th:text="#{error.generic}"></p> </th:block>
+        </div>
+        
+        <a th:href="@{/(lang=${#locale.language})}" class="btn-back" th:text="#{error.back_button}">Retornar à página principal</a>
+    </div>
+</body>
+</html>
