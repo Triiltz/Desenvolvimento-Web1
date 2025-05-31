@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{app.title}"></title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; }
+        h2 { color: #333; text-align: center; }
+        form { background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
+        select, input[type="number"] { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; margin-bottom: 20px; }
+        input[type="submit"] { background-color: #5cb85c; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; width: 100%; }
+        input[type="submit"]:hover { background-color: #4cae4c; }
+        .language-switcher { text-align: right; margin-bottom: 20px; }
+        .language-switcher a { margin-left: 10px; text-decoration: none; color: #007bff; }
+        .language-switcher a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="language-switcher">
+        <a th:href="@{/(lang=pt-BR)}">Português</a>
+        <a th:href="@{/(lang=en)}">English</a>
+    </div>
+
+    <h2 th:text="#{app.title}">Conversor de Distância</h2>
+
+    <form th:action="@{/converter}" method="post">
+        <label for="conversao" th:text="#{form.select_conversion}">Escolha a conversão:</label>
+        <select name="conversao" id="conversao" required>
+            <option value="" disabled selected th:text="#{form.select_option}">Selecione uma opção</option>
+            <option value="mi_m" th:text="#{conversion.mi_m}">Milhas → Metros</option>
+            <option value="m_mi" th:text="#{conversion.m_mi}">Metros → Milhas</option>
+            <option value="ft_m" th:text="#{conversion.ft_m}">Pés → Metros</option>
+            <option value="m_ft" th:text="#{conversion.m_ft}">Metros → Pés</option>
+        </select>
+
+        <label for="valor" th:text="#{form.enter_value}">Digite o valor:</label>
+        <input type="number" step="any" name="valor" id="valor" required th:placeholder="#{form.enter_number}"/>
+
+        <input type="submit" th:value="#{form.convert_button}"/>
+    </form>
+</body>
+</html>

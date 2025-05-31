@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="|#{app.title} - #{error.title}|"></title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f5f5f5; }
+        .container { background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align:center; }
+        h2 { color: #333; margin-top: 0; margin-bottom:15px;}
+        .error-message-box { background-color: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 20px; margin: 20px 0; border-radius: 5px; }
+        .error-message-box h3 { color: #721c24; margin-top: 0; font-size:1.2em; }
+        .btn-back { display: inline-block; margin-top: 20px; background-color: #5cb85c; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-size: 1em; }
+        .btn-back:hover { background-color: #4cae4c; }
+        .language-switcher { text-align: right; margin-bottom: 15px; }
+        .language-switcher a { margin-left: 10px; text-decoration: none; color: #007bff; }
+        .language-switcher a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+         <div class="language-switcher">
+            <a th:href="@{/erro(lang='pt-BR', errorType=${model.errorType != null ? model.errorType : ''})}">Português</a>
+            <a th:href="@{/erro(lang='en', errorType=${model.errorType != null ? model.errorType : ''})}">English</a>
+        </div>
+
+        <h2 th:text="#{app.title}">Conversor de Distância</h2>
+        
+        <div class="error-message-box">
+            <h3 th:text="#{error.header}">Erro</h3>
+            <th:block th:switch="${errorType}">
+                <p th:case="'missing_params'" th:text="#{error.missing_params}"></p>
+                <p th:case="'invalid_number'" th:text="#{error.invalid_number}"></p>
+                <p th:case="'invalid_conversion'" th:text="#{error.invalid_conversion}"></p>
+                <p th:case="*" th:text="#{error.generic}"></p> </th:block>
+        </div>
+        
+        <a th:href="@{/(lang=${#locale.language})}" class="btn-back" th:text="#{error.back_button}">Retornar à página principal</a>
+    </div>
+</body>
+</html>
