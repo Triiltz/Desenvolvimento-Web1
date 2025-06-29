@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="${planoTreino.id == null} ? #{plano.cadastro.titulo} : #{plano.edicao.titulo}"></title>
+</head>
+<body>
+<section layout:fragment="corpo">
+    <div class="container" style="margin-top: 20px;">
+        <h2 th:text="${planoTreino.id == null} ? #{plano.cadastro.titulo} : #{plano.edicao.titulo}"></h2>
+
+        <form th:action="${planoTreino.id == null} ? @{/planos/salvar} : @{/planos/editar}"
+              th:object="${planoTreino}" method="post">
+            
+            <div th:replace="~{fragments/alert :: alert}"></div>
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="form-group">
+                <label for="nomeTreino" th:text="#{plano.label.nome}"></label>
+                <input type="text" class="form-control" id="nomeTreino" th:field="*{nomeTreino}" required="required"/>
+                <div th:replace="~{fragments/validacao :: alert('nomeTreino', 'Favor informar o nome do treino')}"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="tipo" th:text="#{plano.label.tipo}"></label>
+                <input type="text" class="form-control" id="tipo" th:field="*{tipo}"/>
+            </div>
+
+            <div class="form-group">
+                <label for="aluno" th:text="#{plano.label.aluno}"></label>
+                <select id="aluno" class="form-control" th:field="*{aluno}" required="required">
+                    <option value="" th:text="#{plano.select.aluno}"></option>
+                    <option th:each="aluno : ${alunos}"
+                            th:value="${aluno.id}"
+                            th:text="${aluno.nome}">
+                    </option>
+                </select>
+                <div th:replace="~{fragments/validacao :: alert('aluno', 'Favor selecionar um aluno')}"></div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="dataInicio" th:text="#{plano.label.dataInicio}"></label>
+                    <input type="date" class="form-control" id="dataInicio" th:field="*{dataInicio}" required="required"/>
+                    <div th:replace="~{fragments/validacao :: alert('dataInicio', 'Favor informar a data de início')}"></div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="dataFim" th:text="#{plano.label.dataFim}"></label>
+                    <input type="date" class="form-control" id="dataFim" th:field="*{dataFim}" required="required"/>
+                    <div th:replace="~{fragments/validacao :: alert('dataFim', 'Favor informar a data de fim')}"></div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="duracaoSemanas" th:text="#{plano.label.duracao}"></label>
+                    <input type="number" class="form-control" id="duracaoSemanas" th:field="*{duracaoSemanas}" required="required"/>
+                    <div th:replace="~{fragments/validacao :: alert('duracaoSemanas', 'Favor informar a duração')}"></div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="frequenciaSemanal" th:text="#{plano.label.frequencia}"></label>
+                    <input type="number" class="form-control" id="frequenciaSemanal" th:field="*{frequenciaSemanal}" required="required"/>
+                    <div th:replace="~{fragments/validacao :: alert('frequenciaSemanal', 'Favor informar a frequência')}"></div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="descricao" th:text="#{plano.label.descricao}"></label>
+                <textarea class="form-control" id="descricao" th:field="*{descricao}" rows="2"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="observacoes" th:text="#{plano.label.observacoes}"></label>
+                <textarea class="form-control" id="observacoes" th:field="*{observacoes}" rows="2"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" th:text="#{botao.salvar}"></button>
+        </form>
+    </div>
+</section>
+</body>
+</html>

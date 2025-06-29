@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8" />
+    <title th:text="#{system.title}"></title>
+    <link th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/webjars/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+</head>
+<body>
+    <header th:replace="~{fragments/header :: cabecalho}"></header>
+    <div class="layout-main">
+        <aside>
+            <nav th:replace="~{fragments/sidebar :: nav-sidebar}"></nav>
+        </aside>
+        <section layout:fragment="corpo"></section>
+    </div>
+    <div th:replace="~{fragments/modal_confirm :: modal}"></div>
+    <footer th:replace="~{fragments/footer :: rodape}"></footer>
+
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.bundle.min.js}"></script>
+    
+    <script type="text/javascript">
+        var urlParaExcluir = '';
+
+        // Função para definir a URL a ser excluída
+        function definirUrlExclusao(url) {
+            urlParaExcluir = url;
+        }
+
+        // Quando o botão de confirmação do modal for clicado
+        $('#ok_confirm').click(function() {
+            // Redireciona para a URL armazenada
+            window.location.href = urlParaExcluir;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div class="modal fade" ... th:fragment="modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+                    <h5 class="modal-title" th:text="#{modal.title}">Atenção</h5>
+				</div>
+				<div class="modal-body">
+                    <p th:text="#{modal.message}">Deseja realmente prosseguir?</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{botao.cancelar}"></button>
+					<button type="button" class="btn btn-danger" id="ok_confirm" th:text="#{botao.remover}"></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
