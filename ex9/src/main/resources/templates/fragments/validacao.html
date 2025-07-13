@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="alert (field, message)"
+		 th:if="${#fields.hasErrors(field)}">
+		<div class="alert alert-danger" role="alert">
+			<span th:errors="*{__${field}__}" th:text="${message}"></span>
+		</div>
+	</div>
+</body>
+</html>
