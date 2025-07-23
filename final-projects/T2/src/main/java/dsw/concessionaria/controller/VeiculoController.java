@@ -1,0 +1,185 @@
+package dsw.concessionaria.controller;
+
+import dsw.concessionaria.domain.Loja;
+import dsw.concessionaria.domain.Veiculo;
+import dsw.concessionaria.domain.Imagem; // IMPORTAR
+import dsw.concessionaria.security.MyUserDetails; // IMPORTAR
+import dsw.concessionaria.service.spec.IVeiculoService;
+import jakarta.validation.Valid;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile; 
+
+
+
+
+@Controller
+@RequestMapping("/veiculos")
+@PreAuthorize("hasRole('ROLE_STORE')")
+public class VeiculoController {
+
+    @Autowired
+    private IVeiculoService veiculoService;
+
+
+    @GetMapping("/listar")
+    public String listar(ModelMap model, @AuthenticationPrincipal MyUserDetails userDetails) {
+        
+        Loja lojaLogada = (Loja) userDetails.getUsuario();
+        
+        // R6: Lista todos os veículos da loja logada
+        model.addAttribute("veiculos", veiculoService.buscarPorLoja(lojaLogada));
+        return "veiculo/lista";
+    }
+
+    @GetMapping("/cadastrar")
+    public String cadastrar(ModelMap model) {
+        model.addAttribute("veiculo", new Veiculo());
+        return "veiculo/cadastro";
+    }
+
+    @PostMapping("/salvar")
+    public String salvar(@Valid Veiculo veiculo, BindingResult result, 
+                     @AuthenticationPrincipal MyUserDetails userDetails, 
+                     RedirectAttributes attr
+                     ,@RequestParam("imagens") MultipartFile[] imagens
+                     ) {
+
+
+    if (result.hasErrors()) {
+        System.out.println("=============================================");
+        System.out.println("### ERROS DE VALIDAÇÃO ENCONTRADOS ###");
+
+        result.getAllErrors().forEach(error -> {
+            System.out.println(error.toString());
+        });
+        System.out.println("=============================================");
+        return "veiculo/cadastro";
+    }
+
+    if(imagens.length > 10){
+        attr.addFlashAttribute("erro", "Você pode enviar no máximo 10 imagens.");
+        return "redirect:/veiculos/cadastrar";
+    }
+    
+    // O resto do código só executa se não houver erros
+    Loja lojaLogada = (Loja) userDetails.getUsuario();
+    veiculo.setLoja(lojaLogada);
+
+    var veiculoId = veiculoService.salvar(veiculo);
+
+    // Salvar as imagens associadas ao veículo
+    System.out.println(imagens.length + " imagens recebidas para o veículo: " + veiculo.getModelo());
+    List<Long> fotos = new ArrayList<>(); 
+    for (MultipartFile imagem : imagens) {
+        if (!imagem.isEmpty()) {
+            try {
+                Imagem novaImagem = new Imagem();
+                novaImagem.setNomeArquivo(imagem.getOriginalFilename());
+                novaImagem.setDados(imagem.getBytes()); // Salva os bytes da imagem
+                novaImagem.setVeiculo(veiculo);
+                fotos.add(veiculoService.salvarImagem(novaImagem));
+            } catch (IOException e) {
+                attr.addFlashAttribute("erro", "Erro ao enviar as imagens. Por favor, tente novamente.");
+                return "redirect:/veiculos/cadastrar";
+            }
+        }
+    }
+
+    veiculo = veiculoService.buscarPorId(veiculoId); 
+    veiculo.setFotos(fotos);
+    veiculoService.salvar(veiculo); 
+    
+    attr.addFlashAttribute("sucesso", "Veículo cadastrado com sucesso.");
+    return "redirect:/veiculos/listar";
+}
+
+    @GetMapping("/imagem/{id}")
+    public ResponseEntity<byte[]> exibirImagem(@PathVariable Long id) {
+        Imagem imagem = veiculoService.buscarImagemPorId(id);
+        if (imagem != null) {
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
+                    .body(imagem.getDados());
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/editar/{id}")
+    public String formEditarVeiculo(@PathVariable("id") Long id, ModelMap model) {
+        // Busca o veículo pelo ID no banco de dados.
+        Veiculo veiculo = veiculoService.buscarPorId(id);
+        // Adiciona o veículo encontrado ao modelo.
+        model.addAttribute("veiculo", veiculo);
+        // Reutiliza a mesma página de cadastro para a edição.
+        return "veiculo/cadastro";
+    }
+    
+
+    @PostMapping("/editar")
+    public String editar(@Valid Veiculo veiculo, BindingResult result, 
+                     @AuthenticationPrincipal MyUserDetails userDetails, 
+                     RedirectAttributes attr
+                    ,@RequestParam("imagens") MultipartFile[] imagens
+                     ) {
+
+
+    if (result.getFieldErrorCount() > 2) {
+        System.out.println("=============================================");
+        System.out.println("### ERROS DE VALIDAÇÃO ENCONTRADOS ###");
+
+        result.getAllErrors().forEach(error -> {
+            System.out.println(error.toString());
+        });
+        System.out.println("=============================================");
+        return "veiculo/cadastro";
+    }
+    
+    // O resto do código só executa se não houver erros
+    Loja lojaLogada = (Loja) userDetails.getUsuario();
+    veiculo.setLoja(lojaLogada);
+
+    veiculoService.salvar(veiculo);
+
+    // Salvar as imagens associadas ao veículo
+    if(imagens.length > 10){
+        return "veiculo/cadastro";
+    }
+    System.out.println(imagens.length + " imagens recebidas para o veículo: " + veiculo.getModelo());
+    for (MultipartFile imagem : imagens) {
+        if (!imagem.isEmpty()) {
+            try {
+                Imagem novaImagem = new Imagem();
+                novaImagem.setNomeArquivo(imagem.getOriginalFilename());
+                novaImagem.setDados(imagem.getBytes()); // Salva os bytes da imagem
+                novaImagem.setVeiculo(veiculo);
+                veiculoService.salvarImagem(novaImagem);
+
+            } catch (IOException e) {
+                throw new RuntimeException("Erro ao processar imagem: " + e.getMessage());
+            }
+        }
+    }
+
+    attr.addFlashAttribute("sucesso", "Veículo atualizado com sucesso.");
+    return "redirect:/veiculos/listar";
+}
+
+}

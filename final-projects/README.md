@@ -1,0 +1,2 @@
+# Trabalhos Finais da Disciplina
+Os trabalhos são uma continuação direta um do outro, ou seja, o **T1** eh a base do projeto e o **T2** apenas adiciona algumas funcionalidades extras assim como a utilização de funcionalidades com API REST.
